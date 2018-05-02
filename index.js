@@ -24,7 +24,7 @@ schedule.scheduleJob('33 * * * *', () => {
             newData.push([coin, moment().format('YYYY-MM-DD'), coinPrice.USD]);
             if (newData.length === 10) {
                 var con = mysql.createConnection({
-                    host: "cryptos.cvndjrqk9gtt.us-east-2.rds.amazonaws.com:3306",
+                    host: "cryptos.cvndjrqk9gtt.us-east-2.rds.amazonaws.com",
                     user: process.env.USERNAME,
                     password: process.env.PASSWORD,
                     database: "cryptos"
