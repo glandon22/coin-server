@@ -17,14 +17,14 @@ var newData = [];
 
 //wrap function in this after i get it working
 
-schedule.scheduleJob('25 * * * *', () => { 
+schedule.scheduleJob('33 * * * *', () => { 
     coins.forEach(coin => {
         request.get('https://min-api.cryptocompare.com/data/price?fsym=' +  coin.toUpperCase() + '&tsyms=USD', function(err, res, body) {
             var coinPrice = JSON.parse(body);
             newData.push([coin, moment().format('YYYY-MM-DD'), coinPrice.USD]);
             if (newData.length === 10) {
                 var con = mysql.createConnection({
-                    host: "cryptos.cvndjrqk9gtt.us-east-2.rds.amazonaws.com",
+                    host: "cryptos.cvndjrqk9gtt.us-east-2.rds.amazonaws.com:3306",
                     user: process.env.USERNAME,
                     password: process.env.PASSWORD,
                     database: "cryptos"
