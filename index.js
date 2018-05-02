@@ -17,7 +17,7 @@ var newData = [];
 
 //wrap function in this after i get it working
 
-schedule.scheduleJob('33 * * * *', () => { 
+schedule.scheduleJob('37 * * * *', () => { 
     coins.forEach(coin => {
         request.get('https://min-api.cryptocompare.com/data/price?fsym=' +  coin.toUpperCase() + '&tsyms=USD', function(err, res, body) {
             var coinPrice = JSON.parse(body);
