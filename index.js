@@ -16,46 +16,34 @@ var coins = [
 var newData = [];
 
 //wrap function in this after i get it working
-/*
-schedule.scheduleJob('0 0 * * *', () => { 
-........
- });
-*/
 
-coins.forEach(coin => {
-    request.get('https://min-api.cryptocompare.com/data/price?fsym=' +  coin.toUpperCase() + '&tsyms=USD', function(err, res, body) {
-        /*var newRow = [];
-        var csv = body.split(',');
-        for (var i = 0; i < 9; i++) {
-            newRow.unshift(csv[csv.length - 2 - i]);
-        }
-        newRow.unshift(coin);
-        console.log(newRow);
-        */
-        var coinPrice = JSON.parse(body);
-        newData.push([coin, moment().format('YYYY-MM-DD'), coinPrice.USD]);
-        if (newData.length === 10) {
-            console.log(newData);
-
-            var con = mysql.createConnection({
-                host: "cryptos.cvndjrqk9gtt.us-east-2.rds.amazonaws.com",
-                user: "",
-                password: "",
-                database: "cryptos"
-              });
-              
-              con.connect(function(err) {
-                if (err) throw err;
-                console.log("Connected!");
-        
-                var sql = "INSERT INTO test (coin, date, price) VALUES ?";
-                con.query(sql, [newData], function(err, results) {
+schedule.scheduleJob('59 * * * *', () => { 
+    coins.forEach(coin => {
+        request.get('https://min-api.cryptocompare.com/data/price?fsym=' +  coin.toUpperCase() + '&tsyms=USD', function(err, res, body) {
+            var coinPrice = JSON.parse(body);
+            newData.push([coin, moment().format('YYYY-MM-DD'), coinPrice.USD]);
+            if (newData.length === 10) {
+                var con = mysql.createConnection({
+                    host: "cryptos.cvndjrqk9gtt.us-east-2.rds.amazonaws.com",
+                    user: process.env.USERNAME,
+                    password: process.env.PASSWORD,
+                    database: "cryptos"
+                  });
+                  
+                  con.connect(function(err) {
                     if (err) throw err;
-                    console.log('inserted correctly');
-                }); 
-            });
+                    console.log("Connected!");
             
-        }
+                    var sql = "INSERT INTO test (coin, date, price) VALUES ?";
+                    con.query(sql, [newData], function(err, results) {
+                        if (err) throw err;
+                        console.log('inserted correctly');
+                        newData = [];
+                    }); 
+                });
+                
+            }
+        });
     });
 });
 
