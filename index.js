@@ -17,7 +17,7 @@ var newData = [];
 
 //wrap function in this after i get it working
 
-schedule.scheduleJob('59 * * * *', () => { 
+schedule.scheduleJob('6 * * * *', () => { 
     coins.forEach(coin => {
         request.get('https://min-api.cryptocompare.com/data/price?fsym=' +  coin.toUpperCase() + '&tsyms=USD', function(err, res, body) {
             var coinPrice = JSON.parse(body);
@@ -32,11 +32,13 @@ schedule.scheduleJob('59 * * * *', () => {
                   
                   con.connect(function(err) {
                     if (err) throw err;
+                    console.log(err);
                     console.log("Connected!");
             
                     var sql = "INSERT INTO test (coin, date, price) VALUES ?";
                     con.query(sql, [newData], function(err, results) {
                         if (err) throw err;
+                        console.log(err);
                         console.log('inserted correctly');
                         newData = [];
                     }); 
