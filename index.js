@@ -17,7 +17,7 @@ var newData = [];
 
 //wrap function in this after i get it working
 
-schedule.scheduleJob('5 4 * * *', () => { 
+schedule.scheduleJob('7 3 * * *', () => { 
     coins.forEach(coin => {
         request.get('https://min-api.cryptocompare.com/data/price?fsym=' +  coin.toUpperCase() + '&tsyms=USD', function(err, res, body) {
             var coinPrice = JSON.parse(body);
@@ -48,10 +48,6 @@ schedule.scheduleJob('5 4 * * *', () => {
 });
 
 app.get('/', function(req,res) {
-    res.send('hello world');
-});
-
-app.get('/wakemydyno.txt', function(req,res) {
     res.send('hello world');
 });
 
