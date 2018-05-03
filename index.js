@@ -48,8 +48,20 @@ schedule.scheduleJob('15 7 * * *', () => {
     });
 });
 
+schedule.scheduleJob('15 11 * * *', () => {
+    console.log('calling1')
+});
+
+schedule.scheduleJob('9 * * * *', () => {
+    console.log('calling2')
+});
+
 app.get('/', function(req,res) {
     res.send('hello world');
+});
+
+app.get('/updateCoinData', function(req,res) {
+
 });
 
 app.listen(PORT);
