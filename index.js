@@ -6,7 +6,7 @@ const schedule = require('node-schedule');
 const _async = require('async');
 const app = express();
 const PORT = process.env.PORT || 5000;
-var mostRecentDataPoint;
+var mostRecentDataPoint = moment().format('YYYY-MM-DD');
 var labels = [];
 const mysql = require('mysql');
 var request = require('request');
