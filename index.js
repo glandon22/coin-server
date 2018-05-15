@@ -19,6 +19,7 @@ var newData = [];
 
 schedule.scheduleJob('15 7 * * *', () => {
     mostRecentDataPoint = moment().format('YYYY-MM-DD');
+    console.log(mostRecentDataPoint);
     coins.forEach(coin => {
         request.get('https://min-api.cryptocompare.com/data/price?fsym=' +  coin.toUpperCase() + '&tsyms=USD', function(err, res, body) {
             var coinPrice = JSON.parse(body);
