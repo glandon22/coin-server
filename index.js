@@ -12,6 +12,7 @@ var coins = [
     'btc', 'bch', 'ltc', 'eth', 'xem', 'zec', 'dash', 'xmr', 'xvg', 'btg'
 ];
 var newData = [];
+var cors = require('cors'); app.use(cors());
 
 //wrap function in this after i get it working
 
@@ -117,10 +118,10 @@ app.get('/addCoin', function (req, res) {
   console.log(limit);
   const coinName = req.query.coin;
   const connection = mysql.createConnection({
-    host: process.env.HOST,
-    user: process.env.USERNAME,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE
+    host: 'cryptocoins.cvndjrqk9gtt.us-east-2.rds.amazonaws.com',
+    user: 'glandon22',
+    password: 'taylord2278',
+    database: 'cryptos'
   });
 
   connection.connect(function(err) {
@@ -175,10 +176,10 @@ app.get('/changePeriod', function(req,res) {
   //check what time period is
   else {
     const connection = mysql.createConnection({
-        host: process.env.HOST,
-        user: process.env.USERNAME,
-        password: process.env.PASSWORD,
-        database: process.env.DATABASE
+      host: 'cryptocoins.cvndjrqk9gtt.us-east-2.rds.amazonaws.com',
+      user: 'glandon22',
+      password: 'taylord2278',
+      database: 'cryptos'
     });
     var coins = req.query.coins.split(',');
     var limit = findLimit(req.query.time, coins.length);
