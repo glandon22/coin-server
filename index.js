@@ -118,10 +118,10 @@ app.get('/addCoin', function (req, res) {
   console.log(limit);
   const coinName = req.query.coin;
   const connection = mysql.createConnection({
-    host: 'cryptocoins.cvndjrqk9gtt.us-east-2.rds.amazonaws.com',
-    user: 'glandon22',
-    password: 'taylord2278',
-    database: 'cryptos'
+    host: process.env.HOST,
+    user: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
   });
 
   connection.connect(function(err) {
@@ -176,10 +176,10 @@ app.get('/changePeriod', function(req,res) {
   //check what time period is
   else {
     const connection = mysql.createConnection({
-      host: 'cryptocoins.cvndjrqk9gtt.us-east-2.rds.amazonaws.com',
-      user: 'glandon22',
-      password: 'taylord2278',
-      database: 'cryptos'
+    	host: process.env.HOST,
+	user: process.env.USERNAME,
+	password: process.env.PASSWORD,
+	database: process.env.DATABASE
     });
     var coins = req.query.coins.split(',');
     var limit = findLimit(req.query.time, coins.length);
